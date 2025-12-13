@@ -17,8 +17,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use App\Filament\Resources\DrinkResource;
-use App\Filament\Resources\KategoriResource;
+use App\Filament\Resources\MenuResource;
+use App\Filament\Resources\CategoryResource;
 use App\Filament\Resources\OrderResource;
 use Filament\Navigation\NavigationGroup;
 
@@ -64,8 +64,8 @@ class AdminPanelProvider extends PanelProvider
                     ->collapsed(true), // collapsed true jika ingin jadi menu dropdown
             ])
             ->resources([
-                DrinkResource::class,
-                KategoriResource::class,
+                MenuResource::class,
+                CategoryResource::class,
                 OrderResource::class,
             ]);
     }

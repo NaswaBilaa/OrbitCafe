@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\KategoriResource\Pages;
+namespace App\Filament\Resources\MenuResource\Pages;
 
-use App\Filament\Resources\KategoriResource;
+use App\Filament\Resources\MenuResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditKategori extends EditRecord
+class EditMenu extends EditRecord
 {
-    protected static string $resource = KategoriResource::class;
+    protected static string $resource = MenuResource::class;
 
     protected function getHeaderActions(): array
     {

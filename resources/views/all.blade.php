@@ -1,8 +1,8 @@
 @extends('layouts.menu')
 
 @section('content')
-    @forelse ($drinks as $drink)
-        @include('components.card', ['drink' => $drink])
+    @forelse ($menus as $menu)
+        @include('components.card', ['menu' => $menu])
     @empty
         <p class="text-gray-500">Tidak ada minuman ditemukan.</p>
     @endforelse

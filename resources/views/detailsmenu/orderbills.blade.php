@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Shopping Cart | Roastly</title>
+    <title>Shopping Cart | Orbit Cafe</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="px-4 md:px-20 py-8 bg-[#FEFDF8]">
@@ -21,7 +21,6 @@
     {{-- FORM UNTUK MEMILIH ITEM YANG AKAN DI-CHECKOUT --}}
     <form action="{{ route('checkout.show') }}" method="GET"
           class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
         {{-- Cart Items --}}
         <section class="md:col-span-2 space-y-4">
@@ -63,10 +62,10 @@
 
                             {{-- Product --}}
                             <div class="w-1/3 flex items-center gap-4">
-                                <img src="{{ $item['drink_image'] ? asset('storage/' . $item['drink_image']) : 'https://via.placeholder.com/80x80?text=No+Image' }}"
-                                     class="w-20 h-20 rounded-full object-cover" alt="{{ $item['drink_name'] }}">
+                                <img src="{{ $item['menu_image'] ? asset('storage/' . $item['menu_image']) : 'https://via.placeholder.com/80x80?text=No+Image' }}"
+                                     class="w-20 h-20 rounded-full object-cover" alt="{{ $item['menu_name'] }}">
                                 <div>
-                                    <p>{{ $item['drink_name'] }}</p>
+                                    <p>{{ $item['menu_name'] }}</p>
                                     @if (!empty($item['toppings']))
                                         <p class="text-xs text-gray-500">
                                             @foreach ($item['toppings'] as $topping)
@@ -83,7 +82,7 @@
 
                             {{-- Quantity --}}
                             <div class="flex items-center gap-2 bg-gray-100 px-4 py-1 rounded-full">
-                                <input type="hidden" name="items[{{ $uuid }}][drink_id]" value="{{ $item['drink_id'] }}">
+                                <input type="hidden" name="items[{{ $uuid }}][menu_id]" value="{{ $item['menu_id'] }}">
                                 <input type="hidden" name="items[{{ $uuid }}][quantity]" class="quantity-input" value="{{ $item['quantity'] }}">
                                 <button type="button" class="quantity-minus text-lg font-bold">-</button>
                                 <span class="quantity-display border-x px-3">{{ $item['quantity'] }}</span>

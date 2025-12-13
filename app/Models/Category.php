@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
+        'is_active',
     ];
     
-    public function drinks()
+    public function menus()
     {
-        return $this->hasMany(Drink::class);
+        return $this->hasMany(Menu::class);
     }
 }

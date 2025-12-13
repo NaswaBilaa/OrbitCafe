@@ -11,7 +11,7 @@ class OrderItem extends Model
 
     protected $fillable = [
         'order_id',
-        'drink_id',
+        'menu_id',
         'quantity',
         'subtotal',
     ];
@@ -22,9 +22,9 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class);
     }
 
-    public function drink()
+    public function menu()
     {
-        return $this->belongsTo(Drink::class);
+        return $this->belongsTo(Menu::class);
     }
 
     public function toppings()

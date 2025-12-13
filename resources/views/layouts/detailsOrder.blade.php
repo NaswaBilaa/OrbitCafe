@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ordered Details | Roastly</title>
+    <title>Ordered Details | Orbit Cafe</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -15,9 +15,9 @@
             <img src="{{ asset('icon/arrow-left.png') }}" alt="" class="w-8 h-8">
         </button>
         <div class="w-full flex flex-col items-center mb-10">
-            <h1 class="text-4xl font-bold text-[#402F0B]">{{ $drink->name }}</h1>
+            <h1 class="text-4xl font-bold text-[#402F0B]">{{ $menu->name }}</h1>
             <h1 class="text-xl font-bold text-[#B97D0E]">
-                price: Rp {{ number_format($drink->price, 0, ',', '.') }}
+                price: Rp {{ number_format($menu->price, 0, ',', '.') }}
             </h1>
         </div>
     </header>
@@ -27,8 +27,8 @@
 
             {{-- LEFT: Image --}}
             <div class="bg-white p-6 rounded-lg shadow-md flex justify-center">
-                @if($drink->image)
-                    <img src="{{ asset('storage/' . $drink->image) }}" alt="{{ $drink->name }}" class="max-h-full object-contain">
+                @if($menu->image)
+                    <img src="{{ asset('storage/' . $menu->image) }}" alt="{{ $menu->name }}" class="max-h-full object-contain">
                 @else
                     <img src="https://via.placeholder.com/400x400?text=No+Image" alt="No Image" class="max-h-full object-contain">
                 @endif
@@ -37,12 +37,12 @@
             {{-- RIGHT: Detail & Form --}}
             <div class="bg-white col-span-2 p-6 rounded-lg shadow-md flex flex-col justify-between">
                 
-                <p class="text-sm mb-6">{{ $drink->description ?? 'No description available.' }}</p>
+                <p class="text-sm mb-6">{{ $menu->description ?? 'No description available.' }}</p>
 
                 <form action="{{ route('cart.add') }}" method="POST">
                     @csrf
 
-                    <input type="hidden" name="drink_id" value="{{ $drink->id }}">
+                    <input type="hidden" name="menu_id" value="{{ $menu->id }}">
 
                     {{-- QUANTITY UI --}}
                     <div class="mb-6">

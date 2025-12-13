@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DrinkResource\Pages;
-use App\Filament\Resources\DrinkResource\RelationManagers;
-use App\Models\Drink;
+use App\Filament\Resources\MenuResource\Pages;
+use App\Filament\Resources\MenuResource\RelationManagers;
+use App\Models\Menu;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,9 +19,9 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ImageColumn;
 
 
-class DrinkResource extends Resource
+class MenuResource extends Resource
 {
-    protected static ?string $model = Drink::class;
+    protected static ?string $model = Menu::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -34,9 +34,9 @@ class DrinkResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('kategori_id')
-                    ->label('Kategori')
-                    ->relationship('kategori', 'name')
+                Select::make('category_id')
+                    ->label('Category')
+                    ->relationship('category', 'name')
                     ->required(),
 
                 TextInput::make('name')
@@ -51,7 +51,7 @@ class DrinkResource extends Resource
                 
                 FileUpload::make('image')
                     ->image()
-                    ->directory('drinks')
+                    ->directory('menus')
                     ->disk('public') 
                     ->imagePreviewHeight('200')
                     ->downloadable()
@@ -67,7 +67,7 @@ class DrinkResource extends Resource
                 TextColumn::make('name')    
                     ->searchable()->sortable(),
                 TextColumn::make('price'),
-                TextColumn::make('kategori.name')->label('Kategori')
+                TextColumn::make('category.name')->label('Category')
                     ->searchable()->sortable(),
                 TextColumn::make('created_at')->dateTime()->sortable(),
                 ImageColumn::make('image')
@@ -101,9 +101,9 @@ class DrinkResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListDrinks::route('/'),
-            'create' => Pages\CreateDrink::route('/create'),
-            'edit' => Pages\EditDrink::route('/{record}/edit'),
+            'index' => Pages\ListMenus::route('/'),
+            'create' => Pages\CreateMenu::route('/create'),
+            'edit' => Pages\EditMenu::route('/{record}/edit'),
         ];
     }
 }

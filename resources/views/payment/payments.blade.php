@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Payments | Roastly</title>
+    <title>Payments | Orbit Cafe</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -43,7 +43,7 @@
                     @foreach ($order->items as $item)
                         <div class="flex justify-between items-center border-b pb-2">
                             <div>
-                                <p class="font-medium text-[#402F0B]">{{ $item->drink->name }}</p>
+                                <p class="font-medium text-[#402F0B]">{{ $item->menu->name }}</p>
                                 @if ($item->toppings->count())
                                     <p class="text-xs text-gray-500">
                                         @foreach ($item->toppings as $topping)

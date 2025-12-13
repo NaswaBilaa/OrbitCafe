@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Drink;
-use App\Models\Kategori;
+use App\Models\Menu;
+use App\Models\Category;
 use App\Models\Topping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -11,19 +11,24 @@ use Illuminate\Support\Str;
 
 class MenuController extends Controller
 {
-    public function all($kategori = null)
+    public function all($category = null)
     {
-        $drinks = $kategori
-            ? Drink::where('kategori_id', Kategori::where('name', ucfirst($kategori))->firstOrFail()->id)->get()
-            : Drink::all();
+        $categories = Category::all();
 
-        return view('all', compact('drinks'));
+        if ($category) {
+            $catModel = Category::where('name', $category)->firstOrFail();
+            $menus = Menu::where('category_id', $catModel->id)->get();
+        } else {
+            $menus = Menu::all();
+        }
+
+        return view('all', compact('menus', 'categories', 'category'));
     }
 
     public function showOrderDetail($id)
     {
         return view('detailsmenu.orderdetails', [
-            'drink' => Drink::findOrFail($id),
+            'menu' => Menu::findOrFail($id),
             'toppings' => Topping::all()->groupBy('type'),
         ]);
     }
@@ -31,7 +36,7 @@ class MenuController extends Controller
     public function addToCart(Request $request)
     {
         $validated = $request->validate([
-            'drink_id' => 'required|exists:drinks,id',
+            'menu_id' => 'required|exists:menus,id',
             'quantity' => 'required|integer|min:1',
             'size_id'  => 'nullable|exists:toppings,id',
             'sugar_id' => 'nullable|exists:toppings,id',
@@ -39,7 +44,7 @@ class MenuController extends Controller
             'mode'     => 'nullable|in:cart,buy_now', 
         ]);
 
-        $drink = Drink::findOrFail($validated['drink_id']);
+        $menu = Menu::findOrFail($validated['menu_id']);
 
         $toppingIds = array_filter([
             $validated['size_id']  ?? null,
@@ -50,14 +55,14 @@ class MenuController extends Controller
         $toppings = Topping::whereIn('id', $toppingIds)->get();
 
         $additionalPrice = $toppings->sum('price');
-        $itemPrice = $drink->price + $additionalPrice;
+        $itemPrice = $menu->price + $additionalPrice;
 
         $cart = Session::get('cart', []);
         $newToppingIdsSorted = $toppings->pluck('id')->sort()->values()->all();
         $existingKey = null;
 
         foreach ($cart as $key => $item) {
-            if ($item['drink_id'] != $drink->id) {
+            if ($item['menu_id'] != $menu->id) {
                 continue;
             }
 
@@ -81,10 +86,10 @@ class MenuController extends Controller
 
             $cart[$uuid] = [
                 'uuid'        => $uuid,
-                'drink_id'    => $drink->id,
-                'drink_name'  => $drink->name,
-                'drink_image' => $drink->image,
-                'base_price'  => $drink->price,
+                'menu_id'    => $menu->id,
+                'menu_name'  => $menu->name,
+                'menu_image' => $menu->image,
+                'base_price'  => $menu->price,
                 'quantity'    => $validated['quantity'],
                 'toppings'    => $toppings->map(fn ($t) => $t->only(['id', 'name', 'price', 'type']))->toArray(),
                 'item_price'  => $itemPrice,

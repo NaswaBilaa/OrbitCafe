@@ -31,18 +31,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Pelanggan user
-        User::create([
-            'name' => 'agnes',
-            'email' => 'agnes@toko.com',
-            'password' => Hash::make('123'), // Ganti password ini 
-            'email_verified_at' => now(),
-            'role' => 'costumer',
-        ]);
+        // User::create([
+        //     'name' => 'agnes',
+        //     'email' => 'agnes@toko.com',
+        //     'password' => Hash::make('123'), // Ganti password ini 
+        //     'email_verified_at' => now(),
+        //     'role' => 'costumer',
+        // ]);
 
         $this->call([
-            KategoriSeeder::class,
+            CategorySeeder::class,
             ToppingSeeder::class,
-            DrinkSeeder::class,
+            MenuSeeder::class,
         ]);
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Checkout | Roastly</title>
+    <title>Checkout | Orbit Cafe</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="px-4 md:px-20 py-8 bg-[#FEFDF8]">
@@ -21,7 +21,6 @@
     {{-- FORM CHECKOUT --}}
     <form action="{{ route('orders.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-6">
         @csrf
-        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
         {{-- LEFT SIDE: Items --}}
         <section class="md:col-span-2 space-y-4">
@@ -75,10 +74,10 @@
 
                             {{-- Product --}}
                             <div class="w-1/3 flex items-center gap-4">
-                                <img src="{{ $item['drink_image'] ? asset('storage/' . $item['drink_image']) : 'https://via.placeholder.com/80x80?text=No+Image' }}"
-                                     class="w-20 h-20 rounded-full object-cover" alt="{{ $item['drink_name'] }}">
+                                <img src="{{ $item['menu_image'] ? asset('storage/' . $item['menu_image']) : 'https://via.placeholder.com/80x80?text=No+Image' }}"
+                                     class="w-20 h-20 rounded-full object-cover" alt="{{ $item['menu_name'] }}">
                                 <div>
-                                    <p>{{ $item['drink_name'] }}</p>
+                                    <p>{{ $item['menu_name'] }}</p>
                                     @if (!empty($item['toppings']))
                                         <p class="text-xs text-gray-500">
                                             @foreach ($item['toppings'] as $topping)
@@ -112,7 +111,7 @@
                         </div>
 
                         {{-- Hidden inputs utk OrderController@store (semua item, nanti difilter by selected) --}}
-                        <input type="hidden" name="items[{{ $uuid }}][drink_id]" value="{{ $item['drink_id'] }}">
+                        <input type="hidden" name="items[{{ $uuid }}][menu_id]" value="{{ $item['menu_id'] }}">
                         <input type="hidden" name="items[{{ $uuid }}][quantity]" value="{{ $item['quantity'] }}">
                         @foreach ($item['toppings'] as $topping)
                             <input type="hidden" name="items[{{ $uuid }}][toppings][]" value="{{ $topping['id'] }}">
