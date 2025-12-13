@@ -32,17 +32,17 @@ class PaymentController extends Controller
             return $order->payment->snap_token;
         }
 
-        // Pastikan items dan drink ke-load
-        $order->loadMissing('items.drink');
+        // Pastikan items dan menu ke-load
+        $order->loadMissing('items.menu');
 
         // Item details untuk Midtrans
         $item_details = [];
         foreach ($order->items as $item) {
             $item_details[] = [
-                'id'       => $item->drink_id,
+                'id'       => $item->menu_id,
                 'price'    => (int) ($item->subtotal / max($item->quantity, 1)),
                 'quantity' => $item->quantity,
-                'name'     => $item->drink->name,
+                'name'     => $item->menu->name,
             ];
         }
 
@@ -76,7 +76,7 @@ class PaymentController extends Controller
 
     public function generateSnapToken($invoice_number)
     {
-        $order = Order::with(['items.drink', 'payment'])
+        $order = Order::with(['items.menu', 'payment'])
             ->where('invoice_number', $invoice_number)
             ->first();
 

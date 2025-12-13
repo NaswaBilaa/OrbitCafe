@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Menu | Roastly</title>
+    <title>Menu | Orbit Cafe</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -18,28 +18,16 @@
                 Cart
             </a>
 
-            <form method="POST" action="{{ route('logout') }}">
+            <!-- <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600">
                     Logout
                 </button>
-            </form>
+            </form> -->
         </div>
         
         <h1 class="text-xl font-bold text-[#B97D0E]">OUR MENU</h1>
         <h1 class="text-4xl font-bold text-[#402F0B]">Find Your Favorite Cup</h1>
-        @php
-            $menus = [
-                'All' => 'menu',
-                'Signature' => 'menu/signature',
-                'Coffee' => 'menu/coffee',
-                'Milk Based' => 'menu/milk based',
-                'Frappe' => 'menu/frappe',
-                'Dessert' => 'menu/dessert',
-                'Tea' => 'menu/tea',
-            ];
-        @endphp
-
         <nav class="pt-10 px-2 md:px-12">
             <div class="flex lg:hidden mb-4">
                 <div id="button-menu" class="shadow-lg rounded-lg px-3 py-2 flex items-center gap-x-2 bg-[#402F0B]">
@@ -49,15 +37,27 @@
                     <p class="font-semibold text-white">Show Menu</p>
                 </div>
             </div>
+
             <ul class="flex flex-wrap items-center justify-center gap-x-4 gap-y-6">
-                @foreach ($menus as $label => $url)
+                <li class="hidden lg:flex showMenu">
+                    <a href="/menu"
+                    class="py-2 px-8 shadow-md rounded-lg text-md font-semibold transition hover:bg-[#402F0B] hover:text-white 
+                    {{ request()->is('menu') ? 'bg-[#402F0B] text-white' : 'bg-white text-[#402F0B]' }}">
+                        All
+                    </a>
+                </li>
+                
+                @foreach ($categories as $cat)
                     <li class="hidden lg:flex showMenu">
-                        <a href="/{{ $url }}"
-                            class="py-2 px-8 shadow-md rounded-lg text-md font-semibold transition hover:bg-[#402F0B] hover:text-white {{ request()->is($url) ? 'bg-[#402F0B] text-white' : 'bg-white text-[#402F0B]' }}">
-                            {{ $label }}
+                        {{-- URL dan Label diambil dari object $cat --}}
+                        <a href="/menu/{{ $cat->name }}"
+                        class="py-2 px-8 shadow-md rounded-lg text-md font-semibold transition hover:bg-[#402F0B] hover:text-white 
+                        {{ request()->is('menu/' . $cat->name) || (isset($category) && $category == $cat->name) ? 'bg-[#402F0B] text-white' : 'bg-white text-[#402F0B]' }}">
+                            {{ $cat->name }}
                         </a>
                     </li>
                 @endforeach
+
             </ul>
         </nav>
     </header>

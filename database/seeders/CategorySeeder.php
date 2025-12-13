@@ -3,16 +3,16 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Kategori;
+use App\Models\Category;
 
-class KategoriSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $kategoris = [
+        $categories = [
             'Signature',
             'Coffee',
             'Milk Based',
@@ -21,9 +21,9 @@ class KategoriSeeder extends Seeder
             'Tea',
         ];
 
-        foreach ($kategoris as $kategori) {
-            Kategori::create([
-                'name' => $kategori,
+        foreach ($categories as $category) {
+            Category::create([
+                'name' => $category,
             ]);
         }
     }

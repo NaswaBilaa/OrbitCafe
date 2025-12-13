@@ -21,10 +21,6 @@ class OrderController extends Controller
 
     public function showPaymentPage(Order $order)
     {
-        if ($order->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         $totalItems = $order->items()->sum('quantity');
         $payment    = $order->payment;
 
@@ -56,7 +52,7 @@ class OrderController extends Controller
             'no_telepon'          => 'required|string|max:20',
             'table_id'            => 'required|exists:tables,id',
             'items'               => 'required|array',
-            'items.*.drink_id'    => 'required|exists:drinks,id',
+            'items.*.menu_id'    => 'required|exists:menus,id',
             'items.*.quantity'    => 'required|integer|min:1',
             'items.*.toppings'    => 'nullable|array',
             'items.*.toppings.*'  => 'exists:toppings,id',
@@ -84,7 +80,6 @@ class OrderController extends Controller
             $totalPrice = 0;
 
             $order = Order::create([
-                'user_id'       => auth()->id(),
                 'invoice_number'=> $invoice,
                 'total_price'   => 0,
                 'status'        => 'pending',
@@ -94,13 +89,13 @@ class OrderController extends Controller
             ]);
 
             foreach ($validated['items'] as $item) {
-                $drink       = \App\Models\Drink::findOrFail($item['drink_id']);
-                $drinkPrice  = $drink->price;
+                $menu       = \App\Models\Menu::findOrFail($item['menu_id']);
+                $menuPrice  = $menu->price;
                 $toppingTotal= 0;
 
                 $orderItem = OrderItem::create([
                     'order_id' => $order->id,
-                    'drink_id' => $drink->id,
+                    'menu_id' => $menu->id,
                     'quantity' => $item['quantity'],
                     'subtotal' => 0,
                 ]);
@@ -117,7 +112,7 @@ class OrderController extends Controller
                     }
                 }
 
-                $subtotal = ($drinkPrice + $toppingTotal) * $item['quantity'];
+                $subtotal = ($menuPrice + $toppingTotal) * $item['quantity'];
                 $orderItem->update(['subtotal' => $subtotal]);
                 $totalPrice += $subtotal;
             }

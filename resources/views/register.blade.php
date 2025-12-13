@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Login | Roastly')
+@section('title', 'Login | Orbit Cafe')
 
 @section('content')
     <div class="w-full h-screen flex justify-center items-center">

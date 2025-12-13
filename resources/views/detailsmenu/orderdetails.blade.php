@@ -1,10 +1,10 @@
 @extends('layouts.detailsOrder')
 
 @section('content')
-    @section('nameMenu', $drink->name)
-    @section('price', 'Rp ' . number_format($drink->price, 0, ',', '.'))
+    @section('nameMenu', $menu->name)
+    @section('price', 'Rp ' . number_format($menu->price, 0, ',', '.'))
     @section('image')
-        <img src="{{ asset('storage/' . $drink->image) }}" alt="{{ $drink->name }}" class="w-full">
+        <img src="{{ asset('storage/' . $menu->image) }}" alt="{{ $menu->name }}" class="w-full">
     @endsection
-    @section('description', $drink->description)
+    @section('description', $menu->description)
 @endsection

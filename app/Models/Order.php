@@ -10,7 +10,6 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'invoice_number',
         'total_price',
         'status',
@@ -18,12 +17,6 @@ class Order extends Model
         'no_telepon',
         'table_id',
     ];
-
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function items()
     {

@@ -39,16 +39,16 @@
                     $sugar = $grouped['sugar'][0]->topping->name ?? '-';
                     $ice   = $grouped['ice'][0]->topping->name ?? '-';
                     $toppingPrice = $item->toppings->sum(fn($t) => $t->topping->price ?? 0);
-                    $drinkPrice = $item->subtotal / $item->quantity - $toppingPrice;
+                    $menuPrice = $item->subtotal / $item->quantity - $toppingPrice;
                     $subtotal = $item->subtotal;
                 @endphp
                 <tr class="border-b border-brown-200">
-                    <td class="py-2 border-r border-brown-200 pr-3">{{ $item->drink->name ?? '-' }}</td>
+                    <td class="py-2 border-r border-brown-200 pr-3">{{ $item->menu->name ?? '-' }}</td>
                     <td class="py-2 border-r border-brown-200 px-3 text-center">{{ $item->quantity }}</td>
                     <td class="py-2 border-r border-brown-200 px-3">
                         size: {{ $size }}, sugar: {{ $sugar }}, ice: {{ $ice }}
                     </td>
-                    <td class="py-2 border-r border-brown-200 px-3 text-right">Rp {{ number_format($drinkPrice) }}</td>
+                    <td class="py-2 border-r border-brown-200 px-3 text-right">Rp {{ number_format($menuPrice) }}</td>
                     <td class="py-2 border-r border-brown-200 px-3 text-right">Rp {{ number_format($toppingPrice) }}</td>
                     <td class="py-2 px-3 text-right">Rp {{ number_format($subtotal) }}</td>
                 </tr>
