@@ -137,7 +137,7 @@
             <div class="space-y-1">
                 <label for="nama_lengkap" class="block text-sm font-medium text-gray-700">Full Name</label>
                 <input type="text" id="nama_lengkap" name="nama_lengkap"
-                       value="{{ old('nama_lengkap', auth()->user()->name ?? '') }}"
+                       value="{{ old('nama_lengkap')}}"
                        class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-700"
                        required>
             </div>
@@ -160,7 +160,7 @@
                     <option value="">Select table</option>
                     @foreach ($tables as $table)
                         <option value="{{ $table->id }}" {{ old('table_id') == $table->id ? 'selected' : '' }}>
-                            Table {{ $table->table_number ?? $table->id }}
+                            {{ $table->no_meja ?? $table->id }}
                         </option>
                     @endforeach
                 </select>
@@ -177,14 +177,6 @@
                 <div class="flex justify-between">
                     <span>Sub Total</span>
                     <span>Rp {{ number_format($totalPrice, 0, ',', '.') }}</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>Shipping</span>
-                    <span>Rp 0</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>Taxes</span>
-                    <span>Rp 0</span>
                 </div>
                 <hr>
                 <div class="flex justify-between font-bold text-[#B97D0E]">

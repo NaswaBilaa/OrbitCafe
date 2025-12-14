@@ -103,16 +103,6 @@
                     </span>
                 </div>
 
-                <div class="flex justify-between text-[#A19580] mb-2">
-                    <span>Shipping</span>
-                    <span class="text-[#402F0B] font-medium">Rp 0</span>
-                </div>
-
-                <div class="flex justify-between text-[#A19580] mb-4">
-                    <span>Taxes</span>
-                    <span class="text-[#402F0B] font-medium">Rp 0</span>
-                </div>
-
                 <hr class="border-t border-[#E0DCD6] mb-3" />
 
                 <div class="flex justify-between text-[#402F0B] font-bold text-base">
@@ -132,7 +122,9 @@
                 snap.pay('{{ $payment->snap_token }}', {
                     onSuccess: function (result) {
                         console.log('Success:', result);
-                        window.location.href = "{{ route('order.success') }}";
+                        
+                        const url = "{{ route('order.success', ['invoice' => ':invoice']) }}";
+                        window.location.href = url.replace(':invoice', result.order_id);
                     },
                     onPending: function (result) {
                         console.log('Pending:', result);
