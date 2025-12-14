@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('no_telepon');
             $table->foreignId('table_id')->constrained()->onDelete('cascade');
             $table->integer('total_price');
-            $table->enum('status', ['pending', 'paid', 'cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'paid', 'processing', 'ready', 'serving', 'completed', 'cancelled', 'failed'])->default('pending');
             $table->timestamps();
         });
     }

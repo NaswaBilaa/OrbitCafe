@@ -15,12 +15,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
         // Admin user
         User::create([
             'name' => 'Admin',
@@ -43,6 +37,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ToppingSeeder::class,
             MenuSeeder::class,
+            TableSeeder::class,
         ]);
     }
 }
