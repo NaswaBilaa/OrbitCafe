@@ -9,8 +9,8 @@
     <div class="grid md:grid-cols-2 text-sm text-brown-800 gap-4 border-t border-b border-brown-300 py-4">
         <div>
             <p><strong>Billed to:</strong></p>
-            <p>{{ $order->user->name ?? '-' }}</p>
-            <p>{{ $order->user->email ?? '-' }}</p>
+            <p>{{ $order->nama_lengkap ?? '-' }}</p>
+            <p>{{ $order->no_telepon ?? '-' }}</p>
         </div>
         <div>
             <p><strong>Status:</strong> {{ ucfirst($order->status) }}</p>
