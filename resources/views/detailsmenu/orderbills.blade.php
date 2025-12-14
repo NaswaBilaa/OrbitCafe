@@ -130,8 +130,6 @@
                     <span>Sub Total</span>
                     <span id="summary-subtotal">Rp {{ number_format($totalPrice, 0, ',', '.') }}</span>
                 </div>
-                <div class="flex justify-between"><span>Shipping</span><span>Rp 0</span></div>
-                <div class="flex justify-between"><span>Taxes</span><span>Rp 0</span></div>
                 <hr>
                 <div class="flex justify-between font-bold text-[#B97D0E]">
                     <span>Total</span>
